@@ -1,5 +1,4 @@
 
-```markdown
 <div align="center">
 
 <h1>Retrieval-based-Voice-Conversion-WebUI</h1>
@@ -62,24 +61,21 @@
 
 ### Ubuntu 24.04
 
-```bash
 sudo apt update
 sudo apt install -y python3.12 python3.12-venv python3.12-dev ffmpeg unzip libsndfile1 libportaudio2
 
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
-```
 
 ### Windows
 
 ثبّت Python 3.12 x64، ثم أنشئ بيئة افتراضية:
 
-```powershell
 py -3.12 -m venv .venv
 .venv\Scripts\activate
 python -m pip install --upgrade pip setuptools wheel
-```
+
 
 ### اختر التبعيات حسب الأجهزة
 
@@ -91,33 +87,28 @@ python -m pip install --upgrade pip setuptools wheel
 
 #### CPU، AMD، Intel
 
-```bash
 python -m pip install -r requirments_cpu_py312.txt
-```
 
 #### سلسلة NVIDIA RTX 50: على مرحلتين
 
-```bash
 python -m pip install torch==2.7.1+cu128 torchaudio==2.7.1+cu128 \
   --index-url https://download.pytorch.org/whl/cu128 \
   --extra-index-url https://pypi.org/simple
 python -m pip install -r requirments_cu128_py312.txt
-```
+
 
 #### بطاقات NVIDIA قبل سلسلة RTX 50: على مرحلتين
 
-```bash
 python -m pip install torch==2.7.1+cu118 torchaudio==2.7.1+cu118 \
   --index-url https://download.pytorch.org/whl/cu118 \
   --extra-index-url https://pypi.org/simple
 python -m pip install -r requirments_cu118_py312.txt
-```
+
 
 تحقق من تثبيت Torch و CUDA:
 
-```bash
 python -c "import torch; print('torch:', torch.__version__); print('cuda:', torch.version.cuda); print('cuda available:', torch.cuda.is_available())"
-```
+
 
 ### فهارس الحزم
 
@@ -134,7 +125,6 @@ python -c "import torch; print('torch:', torch.__version__); print('cuda:', torc
 
 تنشئ واجهة الويب الأدلة الزمنية تلقائياً. حمّل النماذج من [مستودع نماذج Hugging Face](https://huggingface.co/lj1995/VoiceConversionWebUI/tree/main) واحتفظ بهذا الهيكل:
 
-```text
 assets/
 ├── hubert_base/
 │   ├── config.json
@@ -160,11 +150,10 @@ assets/uvr5_weights/*
 assets/weights/*.pth
 assets/indices/*.index
 logs/mute/*
-```
+
 
 ### تنزيل النماذج
 
-```bash
 python -m pip install --upgrade huggingface_hub
 
 # مطلوب للاستدلال واستخراج الخصائص
@@ -183,14 +172,11 @@ python -m zipfile -e .model-downloads/mute.zip logs
 # مطلوب فقط لفصل الغناء UVR5
 hf download lj1995/VoiceConversionWebUI --revision main \
   --include "uvr5_weights/*" --local-dir assets
-```
 
 بيئات Windows AMD/Intel DirectML تحتاج أيضاً إلى:
 
-```bash
 hf download lj1995/VoiceConversionWebUI rmvpe.onnx --revision main \
   --local-dir assets/rmvpe
-```
 
 ### FFmpeg
 
@@ -201,15 +187,13 @@ hf download lj1995/VoiceConversionWebUI rmvpe.onnx --revision main \
 
 ## تشغيل واجهة الويب
 
-```bash
 python webui.py
-```
+
 
 لخادم Ubuntu بدون واجهة رسومية:
 
-```bash
 python webui.py --noautoopen
-```
+
 
 المنفذ الافتراضي هو `7865`. ضع نماذج `.pth` الشخصية في `assets/weights/` وملفات `.index` في `assets/indices/`.
 
@@ -228,5 +212,4 @@ python webui.py --noautoopen
 <a href="https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI/graphs/contributors" target="_blank">
   <img src="https://contrib.rocks/image?repo=RVC-Project/Retrieval-based-Voice-Conversion-WebUI" />
 </a>
-```
 
